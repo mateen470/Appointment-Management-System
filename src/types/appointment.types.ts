@@ -13,7 +13,6 @@ export interface Appointment {
   notes: string | null;
   title: string | null;
 }
-
 export interface Patient {
   id: UUID;
   created_at: string;
@@ -26,7 +25,6 @@ export interface Patient {
   active: boolean | null;
   active_since: string | null;
 }
-
 export interface Category {
   id: UUID;
   created_at: string;
