@@ -4,7 +4,7 @@ A modern, full-stack appointment management system designed for healthcare servi
 
 ## 🚀 Live Demo
 
-[View Live Demo on Vercel](https://your-vercel-url.vercel.app)
+[View Live Demo on Vercel](https://appointment-management-system-eight.vercel.app/)
 
 ## 📋 Overview
 

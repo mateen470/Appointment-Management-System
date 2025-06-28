@@ -1,103 +1,51 @@
-import Image from "next/image";
+import { supabase } from '@/lib/supabase/client';
 
-export default function Home() {
+export default async function Home() {
+  // Test each table
+  const { data: categories, error: categoriesError } = await supabase.from("categories").select("*");
+  const { data: patients, error: patientsError } = await supabase.from("patients").select("*");
+  const { data: appointments, error: appointmentsError } = await supabase.from("appointments").select("*");
+  const { data: relatives, error: relativesError } = await supabase.from("relatives").select("*");
+  const { data: activities, error: activitiesError } = await supabase.from("activities").select("*");
+  const { data: assignees, error: assigneesError } = await supabase.from("appointment_assignee").select("*");
+  const { data: appointmentsWithJoins, error: joinError } = await supabase
+    .from("appointments")
+    .select(`
+    *,
+    patient:patients(*),
+    category:categories(*)
+  `);
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div style={{ padding: '20px', fontFamily: 'monospace' }}>
+      <h1>Database Connection Test</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <h2>Categories:</h2>
+      <pre>Data: {JSON.stringify(categories, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(categoriesError, null, 2)}</pre>
+
+      <h2>Patients:</h2>
+      <pre>Data: {JSON.stringify(patients, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(patientsError, null, 2)}</pre>
+
+      <h2>Appointments:</h2>
+      <pre>Data: {JSON.stringify(appointments, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(appointmentsError, null, 2)}</pre>
+
+      <h2>Relatives:</h2>
+      <pre>Data: {JSON.stringify(relatives, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(relativesError, null, 2)}</pre>
+
+      <h2>Activities:</h2>
+      <pre>Data: {JSON.stringify(activities, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(activitiesError, null, 2)}</pre>
+
+      <h2>Appointment Assignees:</h2>
+      <pre>Data: {JSON.stringify(assignees, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(assigneesError, null, 2)}</pre>
+
+      <h2>Appointments with Relationships:</h2>
+      <pre>Data: {JSON.stringify(appointmentsWithJoins, null, 2)}</pre>
+      <pre>Error: {JSON.stringify(joinError, null, 2)}</pre>
     </div>
   );
 }
