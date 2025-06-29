@@ -1,3 +1,5 @@
+import { Appointment } from "./appointment.types";
+
 export interface DatePickerProps {
   value?: Date;
   onChange?: (date: Date | undefined) => void;
@@ -33,4 +35,17 @@ export interface CalendarHeaderProps {
   onViewChange: (view: "list" | "week" | "month") => void;
   onFilterChange: (filters: FilterState) => void;
   onNewAppointment: () => void;
+}
+
+export interface ListViewProps {
+  selectedDate: Date;
+  appointments: Appointment[];
+}
+
+export interface CalendarContainerProps {
+  appointments: Appointment[];
+}
+
+export interface AppointmentCardProps {
+  appointment: Appointment;
 }
