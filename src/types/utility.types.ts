@@ -37,7 +37,8 @@ export interface CalendarHeaderProps {
   onNewAppointment: () => void;
 }
 
-export interface ListViewProps {
+export interface ViewProps {
+  view: "list" | "week" | "month";
   selectedDate: Date;
   appointments: Appointment[];
 }
@@ -47,5 +48,6 @@ export interface CalendarContainerProps {
 }
 
 export interface AppointmentCardProps {
+  view: "list" | "week" | "month";
   appointment: Appointment;
 }

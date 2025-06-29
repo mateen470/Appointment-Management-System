@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ListView from "./list-view/ListView";
+import ListView from "./ListView";
 import { CalendarContainerProps, FilterState } from "@/types/utility.types";
 import { CalendarHeader } from "./calendar-header/CalendarHeader";
 import WeekView from "./WeekView";
@@ -30,7 +30,7 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
     }
 
     return (
-        <div className="h-full flex flex-col overflow-hidden">
+        <div className="h-full flex flex-col">
             <CalendarHeader
                 selectedDate={selectedDate}
                 currentView={view}
@@ -40,9 +40,9 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
                 onFilterChange={handleFilterChange}
                 onNewAppointment={handleNewAppointment}
             />
-            <div className="flex-1 bg-muted h-full w-full p-10 overflow-y-auto">
-                <div className="max-w-3xl p-2 mx-auto">
-                    {view === 'list' ? <ListView selectedDate={selectedDate} appointments={appointments || []} /> : view === 'week' ? <WeekView /> : view === 'month' ? <MonthView /> : "404 NOT FOUND!!"}
+            <div className={`flex-1 ${view === "list" ? "bg-muted p-10 overflow-y-auto" : "bg-none p-0"}  h-full w-full `}>
+                <div className={`${view === "list" ? "max-w-3xl p-2" : "w-full p-0"} mx-auto`}>
+                    {view === 'list' ? <ListView selectedDate={selectedDate} appointments={appointments || []} view={view} /> : view === 'week' ? <WeekView selectedDate={selectedDate} appointments={appointments || []} view={view}/> : view === 'month' ? <MonthView /> : "404 NOT FOUND!!"}
                 </div>
             </div>
         </div>

@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { format } from 'date-fns'
-import { ListViewProps } from "@/types/utility.types";
-import { AppointmentCard } from './AppointmentCard';
+import { ViewProps } from "@/types/utility.types";
+import { AppointmentCard } from './calendar-cards/AppointmentCard';
 import { Appointment } from '@/types/appointment.types';
 import { de } from 'date-fns/locale';
 import { Info } from 'lucide-react';
 
 
-export default function ListView({ selectedDate, appointments }: ListViewProps) {
+export default function ListView({ selectedDate, appointments, view }: ViewProps) {
 
     const groupedAppointments = useMemo(() => {
         // Group appointments by date
@@ -50,7 +50,7 @@ export default function ListView({ selectedDate, appointments }: ListViewProps) 
                             {isToday && (<div className='bg-green-200 rounded-xs p-1 font-semibold text-xs text-green-400 flex items-center justify-center gap-1'><Info className='h-4 w-4' /><h3>Heute</h3></div>)}
                         </div>
                         {dayAppointments.map(appointment => (
-                            <AppointmentCard key={appointment.id} appointment={appointment} />
+                            <AppointmentCard key={appointment.id} appointment={appointment} view={view} />
                         ))}
                     </div>)
             })}
