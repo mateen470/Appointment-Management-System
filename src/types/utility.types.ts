@@ -16,10 +16,21 @@ export interface FilterState {
 }
 
 export interface AppointmentFilterProps {
-  onFilterChange?: (filters: FilterState) => void;
+  value?: FilterState;
+  onChange?: (filters: FilterState) => void;
 }
 
 export interface NewAppointmentProps {
   onClick?: () => void;
   disabled?: boolean;
+}
+
+export interface CalendarHeaderProps {
+  selectedDate: Date;
+  currentView: "list" | "week" | "month";
+  activeFilters: FilterState;
+  onDateChange: (date: Date | undefined) => void;
+  onViewChange: (view: "list" | "week" | "month") => void;
+  onFilterChange: (filters: FilterState) => void;
+  onNewAppointment: () => void;
 }

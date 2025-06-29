@@ -1,10 +1,39 @@
-import { AppointmentFilter } from "./AppointmentFilter";
 import { DatePicker } from "./DatePicker";
-import { NewAppointment } from "./NewAppointment";
 import { ToggleView } from "./ToggleView";
+import { NewAppointment } from "./NewAppointment";
+import { AppointmentFilter } from "./AppointmentFilter";
+import { CalendarHeaderProps } from "@/types/utility.types";
 
-export function CalendarHeader() {
+export function CalendarHeader({
+    selectedDate,
+    currentView,
+    activeFilters,
+    onDateChange,
+    onViewChange,
+    onFilterChange,
+    onNewAppointment
+}: CalendarHeaderProps) {
     return (
-        <div><DatePicker /> <ToggleView /><AppointmentFilter /><NewAppointment /></div>
-    )
+        <div className="p-4 space-y-4 lg:space-y-0 lg:flex lg:justify-between lg:items-start">
+            <div className="w-full lg:w-1/2 space-y-4 lg:space-y-0 lg:flex lg:items-center lg:gap-4">
+                <div className="flex justify-between items-center w-full lg:w-auto">
+                    <DatePicker value={selectedDate} onChange={onDateChange} />
+                    <div className="ml-2 lg:hidden">
+                        <NewAppointment onClick={onNewAppointment} />
+                    </div>
+                </div>
+
+                <div className="w-full flex justify-center lg:justify-start">
+                    <ToggleView value={currentView} onChange={onViewChange} />
+                </div>
+            </div>
+
+            <div className="w-full lg:w-1/2 flex flex-col-reverse items-end gap-4 lg:flex-row lg:items-center lg:justify-end">
+                <AppointmentFilter value={activeFilters} onChange={onFilterChange} />
+                <div className="hidden lg:block">
+                    <NewAppointment onClick={onNewAppointment} />
+                </div>
+            </div>
+        </div>
+    );
 }

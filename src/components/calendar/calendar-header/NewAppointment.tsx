@@ -6,6 +6,7 @@ import { NewAppointmentProps } from "@/types/utility.types";
 export function NewAppointment({ onClick, disabled }: NewAppointmentProps) {
     return (
         <Button variant='default'
+            className="h-8.5 rounded-sm cursor-pointer"
             onClick={onClick}
             disabled={disabled}>
             <Plus className="h-4 w-4" />

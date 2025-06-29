@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SlidersHorizontal } from "lucide-react"
-import { AppointmentFilterProps, FilterState } from "@/types/utility.types"
 import { Button } from "@/components/ui/button"
+import { AppointmentFilterProps, FilterState } from "@/types/utility.types"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
-export function AppointmentFilter({ onFilterChange }: AppointmentFilterProps) {
+export function AppointmentFilter({ value, onChange }: AppointmentFilterProps) {
 
-    const [filters, setFilters] = useState<FilterState>({
+    const [filters, setFilters] = useState<FilterState>(value || {
         category: null,
         period: null,
         patient: null,
@@ -16,12 +16,19 @@ export function AppointmentFilter({ onFilterChange }: AppointmentFilterProps) {
     const handleFilterChange = (filterType: keyof FilterState, value: string | null) => {
         const newFilters = { ...filters, [filterType]: value }
         setFilters(newFilters)
-        onFilterChange?.(newFilters)
+        onChange?.(newFilters)
     }
+
+    useEffect(() => {
+        if (value) {
+            setFilters(value)
+        }
+    }, [value])
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" ><SlidersHorizontal className="mr-2 h-4 w-4" />Termine filtern</Button>
+                <Button variant="outline" className="rounded-sm h-9 cursor-pointer" ><SlidersHorizontal className="mr-2 h-4 w-4" />Termine filtern</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start">
 

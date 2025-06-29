@@ -7,7 +7,7 @@ export default function Termine() {
     if (isLoading) return <div>Loading...</div>
     if (error) return <div>Error loading appointments</div>
     return (
-        <div>
+        <div className="max-w-7xl h-screen mx-auto p-5">
             <CalendarContainer appointments={data || []} />
         </div>
     )
