@@ -25,9 +25,6 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
     const handleFilterChange = (filters: FilterState) => {
         setActiveFilters(filters)
     }
-    const handleNewAppointment = () => {
-        console.log('New appointment clicked')
-    }
 
     return (
         <div className="h-full flex flex-col">
@@ -38,7 +35,6 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
                 onDateChange={handleDateChange}
                 onViewChange={handleViewChange}
                 onFilterChange={handleFilterChange}
-                onNewAppointment={handleNewAppointment}
             />
             <div className={`flex-1 ${view === "list" ? "bg-muted p-10 overflow-y-auto" : "bg-none p-0 overflow-x-auto"}  h-full w-full `}>
                 <div className={`${view === "list" ? "max-w-3xl p-2" : "w-full p-0"} mx-auto`}>

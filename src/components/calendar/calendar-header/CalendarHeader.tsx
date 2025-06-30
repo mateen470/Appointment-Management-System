@@ -11,7 +11,6 @@ export function CalendarHeader({
     onDateChange,
     onViewChange,
     onFilterChange,
-    onNewAppointment
 }: CalendarHeaderProps) {
     return (
         <div className="p-4 space-y-4 lg:space-y-0 lg:flex lg:justify-between lg:items-start">
@@ -19,7 +18,7 @@ export function CalendarHeader({
                 <div className="flex justify-between items-center w-full lg:w-auto">
                     <DatePicker value={selectedDate} onChange={onDateChange} />
                     <div className="ml-2 lg:hidden">
-                        <NewAppointment onClick={onNewAppointment} />
+                        <NewAppointment />
                     </div>
                 </div>
 
@@ -31,7 +30,7 @@ export function CalendarHeader({
             <div className="w-full lg:w-1/2 flex flex-col-reverse items-end gap-4 lg:flex-row lg:items-center lg:justify-end">
                 <AppointmentFilter value={activeFilters} onChange={onFilterChange} />
                 <div className="hidden lg:block">
-                    <NewAppointment onClick={onNewAppointment} />
+                    <NewAppointment />
                 </div>
             </div>
         </div>

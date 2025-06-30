@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner"
 import { TanStackProvider } from "@/components/provider/tanstack-provider";
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable}  antialiased`}
       >
+        <Toaster />
         <TanStackProvider>
           {children}
         </TanStackProvider>

@@ -1,14 +1,21 @@
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button";
-import { NewAppointmentProps } from "@/types/utility.types";
+import { useRouter } from "next/navigation";
 
 
-export function NewAppointment({ onClick, disabled }: NewAppointmentProps) {
+export function NewAppointment() {
+
+    const router = useRouter()
+
+    const handleClick = () => {
+        router.push('/appointments/new');
+    };
+
     return (
         <Button variant='default'
             className="h-8.5 rounded-sm cursor-pointer"
-            onClick={onClick}
-            disabled={disabled}>
+            onClick={handleClick}
+        >
             <Plus className="h-4 w-4" />
             Neuer Termin</Button>
     )
