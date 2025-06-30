@@ -8,10 +8,13 @@ import {
 import { useEffect, useState } from "react"
 import { ToggleViewProps } from "@/types/utility.types"
 
+// Toggle view component for switching calendar display modes
 export function ToggleView({ value, onChange }: ToggleViewProps) {
 
+    // Local state for current view selection with default to week view
     const [view, setView] = useState<"list" | "week" | "month">(value || 'week')
 
+    // Sync local view state when external value prop changes
     useEffect(() => {
         if (value) {
             setView(value)

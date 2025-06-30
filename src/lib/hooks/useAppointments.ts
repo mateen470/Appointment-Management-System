@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase/client";
 
+//Custom hook to fetch all appointments from supabse using tanstack query
 export function useAppointments() {
   const query = useQuery({
     queryKey: ["appointments"],

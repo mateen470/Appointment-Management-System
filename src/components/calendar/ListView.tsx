@@ -6,9 +6,10 @@ import { Appointment } from '@/types/appointment.types';
 import { de } from 'date-fns/locale';
 import { Info } from 'lucide-react';
 
-
+// List view component showing appointments grouped by date with German formatting
 export default function ListView({ selectedDate, appointments, view }: ViewProps) {
 
+    // Memoized grouping of appointments by date with selected date prioritization
     const groupedAppointments = useMemo(() => {
         // Group appointments by date
         const groups: { [key: string]: Appointment[] } = {}
@@ -23,7 +24,9 @@ export default function ListView({ selectedDate, appointments, view }: ViewProps
             }
         })
 
+        // Get selected date key for prioritizing in sort order
         const selectedDateKey = format(selectedDate, 'yyyy-MM-dd')
+        // Sort grouped appointments with selected date first, then chronologically
         const sortedEntries = Object.entries(groups).sort(([dateA], [dateB]) => {
             // Selected date comes first
             if (dateA === selectedDateKey) return -1

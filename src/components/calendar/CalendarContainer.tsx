@@ -5,10 +5,16 @@ import { CalendarHeader } from "./calendar-header/CalendarHeader";
 import WeekView from "./WeekView";
 import { MonthView } from "./MonthViews";
 
+// Container component that orchestrates calendar views and manages shared state
 export function CalendarContainer({ appointments }: CalendarContainerProps) {
 
+    // State for currently selected date, defaults to today
     const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+
+    // State for current calendar view mode (list, week, or month)
     const [view, setView] = useState<"list" | "week" | "month">("week")
+
+    // State for active appointment filters with default empty values
     const [activeFilters, setActiveFilters] = useState<FilterState>({
         category: null,
         period: null,
@@ -16,12 +22,17 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
         status: null
     })
 
+    // Handle date selection changes, fallback to current date if undefined
     const handleDateChange = (date: Date | undefined) => {
         setSelectedDate(date || new Date())
     }
+
+    // Handle calendar view mode changes
     const handleViewChange = (view: "list" | "week" | "month") => {
         setView(view)
     }
+
+    // Handle filter state changes from filter component
     const handleFilterChange = (filters: FilterState) => {
         setActiveFilters(filters)
     }

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { PatientCategorySectionProps } from "@/types/utility.types"
 
-
+//Patient and Category sections of AppointmentForm
 export function PatientCategorySection({
     patients,
     categories,

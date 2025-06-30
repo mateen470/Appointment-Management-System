@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../supabase/client";
 import {  UpdateAppointmentData } from "@/types/appointment.types";
 
+//Custom hook to update existing appointment in supabse using tanstack query
 export function useModifyAppointment() {
   const queryClient = useQueryClient();
 

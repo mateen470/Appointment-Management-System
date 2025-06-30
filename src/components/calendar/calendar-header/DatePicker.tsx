@@ -12,10 +12,15 @@ import {
 import { CalendarIcon } from "lucide-react"
 import { DatePickerProps } from "@/types/utility.types"
 
+// Reusable date picker component with German date formatting
 export function DatePicker({ value, onChange }: DatePickerProps) {
+    // Control popover open/close state
     const [open, setOpen] = useState(false)
+
+    // Local date state synchronized with external value prop
     const [date, setDate] = useState<Date | undefined>(value)
 
+    // Sync local date state when external value changes or set default to today
     useEffect(() => {
         setDate(value || new Date())
     }, [value])

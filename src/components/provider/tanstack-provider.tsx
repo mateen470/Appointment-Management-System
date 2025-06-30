@@ -7,6 +7,7 @@ import {
 import { useState } from 'react';
 import { TanStackProviderProps } from '@/types/tanstack.types';
 
+//Tanstack Provider setup t
 export const TanStackProvider = ({ children }: TanStackProviderProps) => {
     const [queryClient] = useState(() => new QueryClient({
         defaultOptions: {

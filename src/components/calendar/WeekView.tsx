@@ -4,8 +4,10 @@ import { ViewProps } from "@/types/utility.types";
 import { AppointmentCard } from './calendar-utility/AppointmentCard';
 import { AppointmentDetailsPopover } from './calendar-utility/AppointmentDetailsPopover';
 
+// Week view component displaying appointments in hourly time grid with German formatting
 export default function WeekView({ selectedDate, appointments, view }: ViewProps) {
 
+    // Transform appointments into FullCalendar event format with transparent styling
     const events = appointments
         .filter(appointment => appointment.start && appointment.end)
         .map(appointment => ({

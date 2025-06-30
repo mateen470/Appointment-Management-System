@@ -2,6 +2,7 @@ import { supabase } from "../supabase/client";
 import { CreateAppointmentData } from "@/types/appointment.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+//Custom hook to create new appointment in supabse using tanstack query
 export function useCreateAppointment() {
   const queryClient = useQueryClient();
 

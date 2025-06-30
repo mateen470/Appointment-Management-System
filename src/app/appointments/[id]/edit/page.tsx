@@ -1,31 +1,41 @@
+// Client component for editing existing appointments
 "use client"
 
 import { use } from "react"
 import { useRouter } from "next/navigation"
 import { useAppointments } from "@/lib/hooks/useAppointments"
 import { AppointmentForm } from "@/components/form/AppointmentForm"
+import { Loading } from "@/components/ui/Loading"
 
+// Props interface for the edit appointment page component
 interface EditAppointmentPageProps {
     params: Promise<{
         id: string;
     }>;
 }
 
+// Edit appointment page component that handles appointment modification
 export default function EditAppointmentPage({ params }: EditAppointmentPageProps) {
+    // Initialize router for navigation
     const router = useRouter();
+
+    // Extract appointment ID from URL parameters
     const { id } = use(params);
+
+    // Fetch all appointments data to find the specific appointment
     const { data: appointmentsData, isLoading, error } = useAppointments();
 
+    // Find the specific appointment by ID from the fetched data
     const appointment = appointmentsData?.find(apt => apt.id === id);
 
+    // Show loading state while fetching appointment data
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div>Lade Termin...</div>
-            </div>
+            <Loading />
         );
     }
 
+    // Handle error state when appointment data fails to load
     if (error) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -43,6 +53,7 @@ export default function EditAppointmentPage({ params }: EditAppointmentPageProps
         );
     }
 
+    // Handle case when appointment with given ID doesn't exist
     if (!appointment) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">

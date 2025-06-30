@@ -4,6 +4,7 @@ import { NewAppointment } from "./NewAppointment";
 import { AppointmentFilter } from "./AppointmentFilter";
 import { CalendarHeaderProps } from "@/types/utility.types";
 
+// Main header component for calendar with date picker, view toggle, filters, and new appointment button
 export function CalendarHeader({
     selectedDate,
     currentView,

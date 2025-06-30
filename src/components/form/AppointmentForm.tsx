@@ -16,16 +16,26 @@ import { BasicInfoSection } from "@/components/form/BasicInfoSection"
 import { PatientCategorySection } from "@/components/form/PatientCategorySection"
 import { DateTimeSection } from "@/components/form/DateTimeSection"
 import { AppointmentFormProps } from "@/types/utility.types"
+import { Loading } from "../ui/Loading"
 
-
+// Main appointment form component handling both create and edit modes
 export function AppointmentForm({ mode, appointmentId, initialData }: AppointmentFormProps) {
+    // Router for navigation after form operations
     const router = useRouter();
 
+    // Fetch appointments data to extract patients and categories
     const { data: appointmentsData, isLoading } = useAppointments();
+
+    // Mutation hook for creating new appointments
     const createAppointment = useCreateAppointment();
+
+    // Mutation hook for updating existing appointments
     const modifyAppointment = useModifyAppointment();
+
+    // Mutation hook for deleting appointments
     const removeAppointment = useRemoveAppointment();
 
+    // Main form state containing all appointment data
     const [formData, setFormData] = useState<AppointmentFormData>({
         title: "",
         start: null,
@@ -36,9 +46,13 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         notes: "",
     });
 
+    // Separate state for start time string (HH:MM format)
     const [startTime, setStartTime] = useState<string>("");
+
+    // Separate state for end time string (HH:MM format)
     const [endTime, setEndTime] = useState<string>("");
 
+    // Initialize form with existing data when in edit mode
     useEffect(() => {
         if (mode === "edit" && initialData) {
             setFormData({
@@ -62,6 +76,7 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         }
     }, [mode, initialData]);
 
+    // Extract unique patients from appointments data for selection dropdown
     const patients: Patient[] = appointmentsData
         ? Array.from(
             new Map(
@@ -73,6 +88,7 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         )
         : [];
 
+    // Extract unique categories from appointments data for selection dropdown
     const categories: Category[] = appointmentsData
         ? Array.from(
             new Map(
@@ -84,6 +100,7 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         )
         : [];
 
+    // Utility function to combine date and time into ISO string format
     const getCombinedDateTimeISO = (date: Date | null, time: string): string | null => {
         if (!date || !time) return null;
         const [hours, minutes] = time.split(':').map(Number);
@@ -92,6 +109,7 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         return combined.toISOString();
     };
 
+    // Handle form submission for both create and edit operations
     const handleSubmit = async () => {
         if (mode === "create") {
             const appointmentData: CreateAppointmentData = {
@@ -139,6 +157,7 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         }
     };
 
+    // Handle appointment deletion with error handling and navigation
     const handleDelete = async () => {
         if (!appointmentId) return;
 
@@ -152,10 +171,12 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
         }
     };
 
+    // Navigate back to calendar without saving changes
     const handleCancel = () => {
         router.push('/');
     };
 
+    // Validate required form fields before submission
     const isFormValid = () => {
         return formData.title.trim() &&
             formData.start &&
@@ -164,49 +185,58 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
             formData.category;
     };
 
+    // Check if any mutation is currently pending
     const isSubmitting = mode === "create" ? createAppointment.isPending : modifyAppointment.isPending;
 
+    // Update appointment title in form state
     const handleTitleChange = (value: string) => {
         setFormData(prev => ({ ...prev, title: value }));
     };
 
+    // Update appointment location in form state
     const handleLocationChange = (value: string) => {
         setFormData(prev => ({ ...prev, location: value }));
     };
 
+    // Update appointment notes in form state
     const handleNotesChange = (value: string) => {
         setFormData(prev => ({ ...prev, notes: value }));
     };
 
+    // Update selected patient in form state
     const handlePatientChange = (patientId: string) => {
         setFormData(prev => ({ ...prev, patient: patientId }));
     };
 
+    // Update selected category in form state
     const handleCategoryChange = (categoryId: string) => {
         setFormData(prev => ({ ...prev, category: categoryId }));
     };
 
+    // Update appointment start date in form state
     const handleStartDateChange = (date: Date | null) => {
         setFormData(prev => ({ ...prev, start: date }));
     };
 
+    // Update appointment end date in form state
     const handleEndDateChange = (date: Date | null) => {
         setFormData(prev => ({ ...prev, end: date }));
     };
 
+    // Update appointment start time string
     const handleStartTimeChange = (time: string) => {
         setStartTime(time);
     };
 
+    // Update appointment end time string
     const handleEndTimeChange = (time: string) => {
         setEndTime(time);
     };
 
+    // Show loading state while fetching initial data
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div>Lade Daten...</div>
-            </div>
+            <Loading />
         );
     }
 

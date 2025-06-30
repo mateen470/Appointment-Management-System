@@ -10,8 +10,7 @@ import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { DateTimeSectionProps } from "@/types/utility.types"
 
-
-
+//Date&Time section of AppointmentForm
 export function DateTimeSection({
   startDate,
   endDate,

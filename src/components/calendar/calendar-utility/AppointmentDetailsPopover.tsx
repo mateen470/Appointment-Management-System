@@ -24,19 +24,22 @@ import {
 import { AppointmentDetailsPopoverProps } from "@/types/utility.types";
 
 
-
+// Popover component showing detailed appointment information with edit functionality
 export function AppointmentDetailsPopover({
     children,
     appointment
 }: AppointmentDetailsPopoverProps) {
+    // Router for navigation to edit appointment page
     const router = useRouter();
 
+    // Handle edit button click with event prevention and navigation
     const handleEditClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         router.push(`/appointments/${appointment.id}/edit`);
     };
 
+    // Format date and time in German format with error handling
     const formatDateTime = (dateString: string) => {
         try {
             return format(new Date(dateString), "dd.MM.yyyy 'um' HH:mm", { locale: de });
@@ -45,6 +48,7 @@ export function AppointmentDetailsPopover({
         }
     };
 
+    // Format date only in German format with error handling
     const formatDate = (dateString: string) => {
         try {
             return format(new Date(dateString), "dd.MM.yyyy", { locale: de });
@@ -53,6 +57,7 @@ export function AppointmentDetailsPopover({
         }
     };
 
+    // Format time only in German format with error handling
     const formatTime = (dateString: string) => {
         try {
             return format(new Date(dateString), "HH:mm", { locale: de });
@@ -61,6 +66,7 @@ export function AppointmentDetailsPopover({
         }
     };
 
+    // Calculate patient age from birth date with proper date handling
     const calculateAge = (birthDate: string) => {
         try {
             const birth = new Date(birthDate);

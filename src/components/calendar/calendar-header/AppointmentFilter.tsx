@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button"
 import { AppointmentFilterProps, FilterState } from "@/types/utility.types"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
+// Dropdown filter component for filtering appointments by multiple criteria
 export function AppointmentFilter({ value, onChange }: AppointmentFilterProps) {
 
+    // Local state for managing filter selections with default empty values
     const [filters, setFilters] = useState<FilterState>(value || {
         category: null,
         period: null,
@@ -13,12 +15,14 @@ export function AppointmentFilter({ value, onChange }: AppointmentFilterProps) {
         status: null
     })
 
+    // Handle filter changes and notify parent component of updates
     const handleFilterChange = (filterType: keyof FilterState, value: string | null) => {
         const newFilters = { ...filters, [filterType]: value }
         setFilters(newFilters)
         onChange?.(newFilters)
     }
 
+    // Sync local filter state when external value prop changes
     useEffect(() => {
         if (value) {
             setFilters(value)

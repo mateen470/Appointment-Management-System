@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../supabase/client";
 
+//Custom hook to remove an appointment in supabse using tanstack query
 export function useRemoveAppointment() {
   const queryClient = useQueryClient();
 

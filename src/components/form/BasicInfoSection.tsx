@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button"
 import { BasicInfoSectionProps } from "@/types/utility.types"
 
-
+//GrundInfo section of AppointmentForm
 export function BasicInfoSection({
     title,
     location,
@@ -66,7 +66,7 @@ export function BasicInfoSection({
                             id="location"
                             value={location}
                             onChange={(e) => onLocationChange(e.target.value)}
-                            className="pl-10 rounded-sm bg-white"
+                            className="rounded-sm bg-white"
                         />
                     </div>
                 </div>

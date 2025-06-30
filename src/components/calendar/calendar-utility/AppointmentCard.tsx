@@ -12,9 +12,12 @@ import { Clock, MapPin, MessageSquareQuote } from "lucide-react"
 import { AppointmentCardProps } from "@/types/utility.types"
 import { useUpdateAppointment } from "@/lib/hooks/useUpdateAppointment"
 
+// Appointment card component with different layouts for list, week, and month views
 export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
+    // Router for navigation to edit appointment page
     const router = useRouter();
 
+    // Memoized computation to check if appointment is completed today
     const isComplete = useMemo(() => {
         if (!appointment.updated_at) return false
 
@@ -25,14 +28,17 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
         return updatedDate === today
     }, [appointment.updated_at])
 
+    // Mutation hook for updating appointment completion status
     const updateMutation = useUpdateAppointment()
 
+    // Handle card click to navigate to edit page in list view
     const handleCardClick = () => {
         if (view === 'list') {
             router.push(`/appointments/${appointment.id}/edit`);
         }
     };
 
+    // Handle checkbox state change to mark appointment as complete/incomplete
     const handleCheckedChange = (checked: boolean) => {
         if (checked) {
             updateMutation.mutate({ id: appointment.id, updated_at: new Date().toISOString() }, {
@@ -49,14 +55,17 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
         }
     }
 
+    // Prevent event bubbling when clicking checkbox to avoid card navigation
     const handleCheckboxClick = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
 
+    // Utility function to create lighter color variant for week view background
     const getLighterColor = (color: string) => {
         return color + '30';
     }
 
+    // Render compact card layout for month view
     if (view === 'month') {
         return (
             <Card

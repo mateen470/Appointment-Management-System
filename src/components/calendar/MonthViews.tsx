@@ -5,6 +5,7 @@ import { AppointmentCard } from './calendar-utility/AppointmentCard'
 import { AppointmentDetailsPopover } from './calendar-utility/AppointmentDetailsPopover';
 import { Button } from '@/components/ui/button';
 
+// Month view component displaying appointments in a grid layout with navigation
 export function MonthView({
     selectedDate,
     appointments,
@@ -12,6 +13,7 @@ export function MonthView({
     onDateChange
 }: ViewProps) {
 
+    // Transform appointments into FullCalendar event format with transparent styling
     const events = appointments
         .filter(appointment => appointment.start && appointment.end)
         .map(appointment => ({
@@ -27,12 +29,14 @@ export function MonthView({
             textColor: 'transparent'
         }))
 
+    // Navigate to previous month and update parent component state
     const goToPreviousMonth = () => {
         const newDate = new Date(selectedDate);
         newDate.setMonth(newDate.getMonth() - 1);
         onDateChange?.(newDate);
     };
 
+    // Navigate to next month and update parent component state
     const goToNextMonth = () => {
         const newDate = new Date(selectedDate);
         newDate.setMonth(newDate.getMonth() + 1);
