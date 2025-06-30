@@ -17,9 +17,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
     const [date, setDate] = useState<Date | undefined>(value)
 
     useEffect(() => {
-        if (!value) {
-            setDate(new Date())
-        }
+        setDate(value || new Date())
     }, [value])
 
     return (

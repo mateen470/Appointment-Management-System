@@ -45,6 +45,25 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
         return color + '30';
     }
 
+    if (view === 'month') {
+        return (
+            <Card
+                className="mt-0 rounded-xs w-full border-l-4 p-0 m-0 bg-white h-[40px]"
+                style={{
+                    borderLeftColor: appointment.category?.color || '#e5e7eb'
+                }}
+            >
+                <CardHeader className="p-2 h-full">
+                    <CardTitle className="w-full">
+                        <h1 className="font-semibold text-wrap text-[11px] line-clamp-2">
+                            {appointment.title || 'Untitled Appointment'}
+                        </h1>
+                    </CardTitle>
+                </CardHeader>
+            </Card>
+        )
+    }
+
     return (
         <Card
             className={`${view === 'list' ? "mt-2" : "min-h-[120px] mt-0 border-l-4 rounded-xs w-full"}`}
@@ -53,7 +72,7 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
                 borderLeftColor: appointment.category?.color || '#e5e7eb'
             } : {}}
         >
-            <CardHeader className={`${view === 'list' ? 'h-auto md:h-[10px]' : 'h-[15px] py-0 px-2'}`}>
+            <CardHeader className={`${view === 'list' ? 'h-auto md:h-[10px]' : 'h-[10px] py-0 px-2 -mt-3'}`}>
                 <CardTitle className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-1 min-w-0 flex-1">
                         {view === 'list' && (
@@ -75,7 +94,7 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
             <CardContent className={view === 'list' ? '' : 'py-0 px-2 space-y-1'}>
                 <div className={`flex items-start gap-1 ${view === 'list' ? 'mb-2' : ''}`}>
                     <Clock className={`${view === 'list' ? 'h-4 w-4' : 'h-3 w-3 min-h-[12px] min-w-[12px]'} text-muted-foreground flex-shrink-0`} />
-                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[85px]'}`}>
+                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[100px]'}`}>
                         {appointment.start ? format(new Date(appointment.start), 'HH:mm') : 'No start time'} bis{" "}
                         {appointment.end ? format(new Date(appointment.end), 'HH:mm') : 'No end time'} Uhr
                     </p>
@@ -83,14 +102,14 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
 
                 <div className={`flex items-start gap-1 ${view === 'list' ? 'mb-2' : ''}`}>
                     <MapPin className={`${view === 'list' ? 'h-4 w-4' : 'h-3 w-3 min-h-[12px] min-w-[12px]'} text-muted-foreground flex-shrink-0`} />
-                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[85px]'}`}>
+                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[100px]'}`}>
                         {appointment.location || 'No location'}
                     </p>
                 </div>
 
                 <div className="flex items-start gap-1">
                     <MessageSquareQuote className={`${view === 'list' ? 'h-4 w-4' : 'h-3 w-3 min-h-[12px] min-w-[12px]'} text-muted-foreground flex-shrink-0`} />
-                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[85px]'}`}>
+                    <p className={`text-gray-500 font-medium whitespace-nowrap truncate ${view === 'list' ? 'text-sm' : 'text-[10px] max-w-[100px]'}`}>
                         {appointment.notes || 'No notes'}
                     </p>
                 </div>

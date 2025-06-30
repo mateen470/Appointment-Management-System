@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { format } from 'date-fns'
 import { ViewProps } from "@/types/utility.types";
-import { AppointmentCard } from './calendar-cards/AppointmentCard';
+import { AppointmentCard } from './calendar-utility/AppointmentCard';
 import { Appointment } from '@/types/appointment.types';
 import { de } from 'date-fns/locale';
 import { Info } from 'lucide-react';

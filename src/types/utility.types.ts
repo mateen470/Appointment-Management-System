@@ -41,6 +41,7 @@ export interface ViewProps {
   view: "list" | "week" | "month";
   selectedDate: Date;
   appointments: Appointment[];
+  onDateChange?: (date: Date) => void;
 }
 
 export interface CalendarContainerProps {
@@ -50,4 +51,9 @@ export interface CalendarContainerProps {
 export interface AppointmentCardProps {
   view: "list" | "week" | "month";
   appointment: Appointment;
+}
+
+export interface AppointmentDetailsPopoverProps {
+    children: React.ReactNode;
+    appointment: Appointment;
 }

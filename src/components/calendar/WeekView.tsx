@@ -1,7 +1,8 @@
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { ViewProps } from "@/types/utility.types";
-import { AppointmentCard } from './calendar-cards/AppointmentCard';
+import { AppointmentCard } from './calendar-utility/AppointmentCard';
+import { AppointmentDetailsPopover } from './calendar-utility/AppointmentDetailsPopover';
 
 export default function WeekView({ selectedDate, appointments, view }: ViewProps) {
 
@@ -47,12 +48,16 @@ export default function WeekView({ selectedDate, appointments, view }: ViewProps
                 eventContent={(eventInfo) => {
                     const appointment = eventInfo.event.extendedProps.appointment
                     return (
-                        <div className="h-full w-full">
-                            <AppointmentCard
-                                view={view}
-                                appointment={appointment}
-                            />
-                        </div>
+                        <AppointmentDetailsPopover
+                            appointment={appointment}
+                        >
+                            <div className="h-full w-full p-0 m-0 flex cursor-pointer">
+                                <AppointmentCard
+                                    view={view}
+                                    appointment={appointment}
+                                />
+                            </div>
+                        </AppointmentDetailsPopover>
                     )
                 }}
             />

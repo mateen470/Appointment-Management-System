@@ -134,7 +134,7 @@
 
 .fc {
   --fc-border-color: #e5e7eb;
-  --fc-today-bg-color: #f0f9ff;
+  --fc-today-bg-color: #f3f4f6;
 }
 
 .fc-col-header-cell {
@@ -153,11 +153,11 @@
   color: #60696b;
 }
 
-.fc-timegrid-slot {
+.fc-timeGridWeek-view .fc-timegrid-slot {
   height: 120px !important;
 }
 
-.fc-timegrid-slot-label {
+.fc-timeGridWeek-view .fc-timegrid-slot-label {
   font-size: 12px;
   color: #60696b;
   height: 100%;
@@ -165,22 +165,68 @@
   border: none !important;
 }
 
-.fc-timegrid-slot-label span {
+.fc-timeGridWeek-view .fc-timegrid-slot-label span {
   display: block;
   width: 100%;
   text-align: bottom;
 }
 
-.fc-scrollgrid {
+.fc-timeGridWeek-view .fc-scrollgrid {
   border-left: none !important;
 }
 
-.fc-timegrid-col {
+.fc-timeGridWeek-view .fc-timegrid-col {
   border-color: var(--fc-border-color);
 }
 
-.fc-timegrid-body,
-.fc-scrollgrid-sync-table,
-.fc-scrollgrid {
+.fc-timeGridWeek-view .fc-timegrid-body,
+.fc-timeGridWeek-view .fc-scrollgrid-sync-table,
+.fc-timeGridWeek-view .fc-scrollgrid {
   background-color: #f9f9f9;
+}
+
+.fc-dayGridMonth-view .fc-daygrid-day {
+  height: 120px !important;
+  width: 120px !important;
+  background-color: white !important;
+  position: relative;
+}
+
+.fc-dayGridMonth-view .fc-daygrid-day-frame {
+  background-color: white !important;
+}
+
+.fc-dayGridMonth-view .fc-scrollgrid,
+.fc-dayGridMonth-view .fc-scrollgrid-sync-table,
+.fc-dayGridMonth-view .fc-daygrid-body {
+  background-color: white !important;
+}
+
+.fc-dayGridMonth-view .fc-day-today {
+  background-color: var(--fc-today-bg-color) !important;
+}
+
+.fc-dayGridMonth-view .fc-day-today .fc-daygrid-day-frame {
+  background-color: var(--fc-today-bg-color) !important;
+}
+
+.fc-dayGridMonth-view .fc-daygrid-day-number {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #374151;
+  padding: 6px 8px !important;
+  background-color: transparent !important;
+  border-radius: 4px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.fc-dayGridMonth-view .fc-day-today .fc-daygrid-day-number {
+  background-color: #4b5563 !important;
+  color: white !important;
+  font-weight: 400 !important;
+}
+
+.fc-dayGridMonth-view .fc-daygrid-event-harness {
+  margin: 2px 0;
 }
