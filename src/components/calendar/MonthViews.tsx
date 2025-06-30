@@ -40,7 +40,7 @@ export function MonthView({
     };
 
     return (
-        <div className='pb-10'>
+        <div className='pb-10 w-[1240px]'>
             <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
@@ -55,6 +55,25 @@ export function MonthView({
                 dayMaxEvents={1}
                 moreLinkClick="popover"
                 eventDisplay="block"
+
+                moreLinkContent={(args) => {
+                    return `+${args.num} weitere`;
+                }}
+
+                moreLinkDidMount={(info) => {
+                    info.el.classList.add('custom-more-link');
+                    info.el.style.cssText = `
+                        font-size: 0.75rem;
+                        color: #fff;
+                        background-color: #000;
+                        padding: 6px;
+                        font-weight: 600;
+                        margin-top: 2px;
+                        display: inline-block;
+                        width: auto;
+                        margin-left:3px;
+                        `;
+                }}
 
                 dayCellContent={(args) => {
                     const day = args.date.getDate();
@@ -79,16 +98,16 @@ export function MonthView({
             />
 
             {onDateChange && (
-                <div className="flex justify-center gap-3 mt-3">
+                <div className="flex justify-center gap-3 my-3">
                     <Button
                         onClick={goToPreviousMonth}
-                        className="bg-muted hover:bg-gray-200 text-black text-xs border-0 cursor-pointer rounded-sm"
+                        className="bg-muted hover:bg-gray-200 font-semibold text-gray-500 text-xs border-0 cursor-pointer rounded-sm"
                     >
                         Vorherigen Monat Laden
                     </Button>
                     <Button
                         onClick={goToNextMonth}
-                        className="bg-muted hover:bg-gray-200 text-black text-xs border-0 cursor-pointer rounded-sm"
+                        className="bg-muted hover:bg-gray-200 font-semibold text-gray-500 text-xs border-0 cursor-pointer rounded-sm"
                     >
                         Nächsten Monat Laden
                     </Button>

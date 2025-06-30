@@ -40,7 +40,7 @@ export function CalendarContainer({ appointments }: CalendarContainerProps) {
                 onFilterChange={handleFilterChange}
                 onNewAppointment={handleNewAppointment}
             />
-            <div className={`flex-1 ${view === "list" ? "bg-muted p-10 overflow-y-auto" : "bg-none p-0"}  h-full w-full `}>
+            <div className={`flex-1 ${view === "list" ? "bg-muted p-10 overflow-y-auto" : "bg-none p-0 overflow-x-auto"}  h-full w-full `}>
                 <div className={`${view === "list" ? "max-w-3xl p-2" : "w-full p-0"} mx-auto`}>
                     {view === 'list' ? <ListView selectedDate={selectedDate} appointments={appointments || []} view={view} /> : view === 'week' ? <WeekView selectedDate={selectedDate} appointments={appointments || []} view={view} /> : view === 'month' ? <MonthView selectedDate={selectedDate} appointments={appointments || []} view={view} onDateChange={setSelectedDate} /> : "404 NOT FOUND!!"}
                 </div>

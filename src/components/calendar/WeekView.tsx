@@ -22,7 +22,7 @@ export default function WeekView({ selectedDate, appointments, view }: ViewProps
         }))
 
     return (
-        <div className='pb-10'>
+        <div className='pb-10 w-[1240px]'>
             <FullCalendar
                 plugins={[timeGridPlugin]}
                 initialView="timeGridWeek"
