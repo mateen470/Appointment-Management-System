@@ -22,6 +22,7 @@ import {
     Edit
 } from "lucide-react";
 import { AppointmentDetailsPopoverProps } from "@/types/utility.types";
+import { Appointment, Category, Patient } from "@/types/appointment.types";
 
 
 // Popover component showing detailed appointment information with edit functionality
@@ -66,6 +67,15 @@ export function AppointmentDetailsPopover({
         }
     };
 
+    //For type safety, when using values of category from appointment
+    const getCategory = (appointment: Appointment): Category | null => {
+        return typeof appointment.category === 'object' ? appointment.category : null;
+    };
+    //For type safety, when using values of patient from appointment
+    const getPatient = (appointment: Appointment): Patient | null => {
+        return typeof appointment.patient === 'object' ? appointment.patient : null;
+    };
+
     // Calculate patient age from birth date with proper date handling
     const calculateAge = (birthDate: string) => {
         try {
@@ -100,12 +110,12 @@ export function AppointmentDetailsPopover({
                                         variant="secondary"
                                         className="text-xs"
                                         style={{
-                                            backgroundColor: appointment.category.color ? `${appointment.category.color}20` : undefined,
-                                            color: appointment.category.color || undefined,
-                                            borderColor: appointment.category.color || undefined
+                                            backgroundColor: getCategory(appointment)?.color ? `${getCategory(appointment)?.color}20` : undefined,
+                                            color: getCategory(appointment)?.color || undefined,
+                                            borderColor: getCategory(appointment)?.color || undefined
                                         }}
                                     >
-                                        {appointment.category.label}
+                                        {getCategory(appointment)?.label}
                                     </Badge>
                                 )}
                                 <Button
@@ -119,9 +129,9 @@ export function AppointmentDetailsPopover({
                             </div>
                         </div>
 
-                        {appointment.category?.description && (
+                        {getCategory(appointment)?.description && (
                             <p className="text-xs text-muted-foreground">
-                                {appointment.category.description}
+                                {getCategory(appointment)?.description}
                             </p>
                         )}
                     </div>
@@ -172,41 +182,41 @@ export function AppointmentDetailsPopover({
                                 <div className="pl-6 space-y-1">
                                     <div className="text-xs">
                                         <span className="font-medium">
-                                            {appointment.patient.firstname && appointment.patient.lastname
-                                                ? `${appointment.patient.firstname} ${appointment.patient.lastname}`
-                                                : appointment.patient.firstname || appointment.patient.lastname || "Unbekannt"}
+                                            {getPatient(appointment)?.firstname && getPatient(appointment)?.lastname
+                                                ? `${getPatient(appointment)?.firstname} ${getPatient(appointment)?.lastname}`
+                                                : getPatient(appointment)?.firstname || getPatient(appointment)?.lastname || "Unbekannt"}
                                         </span>
-                                        {appointment.patient.pronoun && (
+                                        {getPatient(appointment)?.pronoun && (
                                             <span className="text-muted-foreground ml-1">
-                                                ({appointment.patient.pronoun})
+                                                ({getPatient(appointment)?.pronoun})
                                             </span>
                                         )}
                                     </div>
 
-                                    {appointment.patient.birth_date && (
+                                    {getPatient(appointment)?.birth_date && (
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                             <Cake className="h-3 w-3" />
                                             <span>
-                                                {formatDate(appointment.patient.birth_date)}
+                                                {formatDate(getPatient(appointment)?.birth_date || '')}
                                                 {(() => {
-                                                    const age = calculateAge(appointment.patient.birth_date);
+                                                    const age = calculateAge(getPatient(appointment)?.birth_date || '');
                                                     return age ? ` (${age} Jahre)` : '';
                                                 })()}
                                             </span>
                                         </div>
                                     )}
 
-                                    {appointment.patient.care_level && (
+                                    {getPatient(appointment)?.care_level && (
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                             <Heart className="h-3 w-3" />
-                                            <span>Pflegegrad {appointment.patient.care_level}</span>
+                                            <span>Pflegegrad {getPatient(appointment)?.care_level}</span>
                                         </div>
                                     )}
 
-                                    {appointment.patient.email && (
+                                    {getPatient(appointment)?.email && (
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                             <Mail className="h-3 w-3" />
-                                            <span>{appointment.patient.email}</span>
+                                            <span>{getPatient(appointment)?.email}</span>
                                         </div>
                                     )}
                                 </div>

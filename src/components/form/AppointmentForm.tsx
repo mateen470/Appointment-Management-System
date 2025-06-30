@@ -11,7 +11,7 @@ import { useAppointments } from "@/lib/hooks/useAppointments"
 import { useCreateAppointment } from "@/lib/hooks/useCreateAppointment"
 import { useModifyAppointment } from "@/lib/hooks/useModifyAppointment"
 import { useRemoveAppointment } from "@/lib/hooks/useRemoveAppointment"
-import { AppointmentFormData, Category, CreateAppointmentData, Patient, UpdateAppointmentData } from "@/types/appointment.types"
+import { Appointment, AppointmentFormData, Category, CreateAppointmentData, Patient, UpdateAppointmentData } from "@/types/appointment.types"
 import { BasicInfoSection } from "@/components/form/BasicInfoSection"
 import { PatientCategorySection } from "@/components/form/PatientCategorySection"
 import { DateTimeSection } from "@/components/form/DateTimeSection"
@@ -52,16 +52,27 @@ export function AppointmentForm({ mode, appointmentId, initialData }: Appointmen
     // Separate state for end time string (HH:MM format)
     const [endTime, setEndTime] = useState<string>("");
 
+    //For type safety, when using values of category from appointment
+    const getCategory = (appointment: Appointment): Category | null => {
+        return typeof appointment.category === 'object' ? appointment.category : null;
+    };
+    //For type safety, when using values of patient from appointment
+    const getPatient = (appointment: Appointment): Patient | null => {
+        return typeof appointment.patient === 'object' ? appointment.patient : null;
+    };
+
     // Initialize form with existing data when in edit mode
     useEffect(() => {
         if (mode === "edit" && initialData) {
+            const patient = getPatient(initialData);
+            const category = getCategory(initialData);
             setFormData({
                 title: initialData.title || "",
                 start: initialData.start ? new Date(initialData.start) : null,
                 end: initialData.end ? new Date(initialData.end) : null,
                 location: initialData.location || "",
-                patient: initialData.patient?.id || null,
-                category: initialData.category?.id || null,
+                patient: patient?.id || null,
+                category: category?.id || null,
                 notes: initialData.notes || "",
             });
 

@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Clock, MapPin, MessageSquareQuote } from "lucide-react"
 import { AppointmentCardProps } from "@/types/utility.types"
 import { useUpdateAppointment } from "@/lib/hooks/useUpdateAppointment"
+import { Appointment, Category } from "@/types/appointment.types"
 
 // Appointment card component with different layouts for list, week, and month views
 export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
@@ -65,13 +66,18 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
         return color + '30';
     }
 
+    //For type safety, when using values of category from appointment
+    const getCategory = (appointment: Appointment): Category | null => {
+        return typeof appointment.category === 'object' ? appointment.category : null;
+    }
+
     // Render compact card layout for month view
     if (view === 'month') {
         return (
             <Card
                 className="mt-0 rounded-xs w-full border-l-4 p-0 m-0 bg-white h-[40px]"
                 style={{
-                    borderLeftColor: appointment.category?.color || '#e5e7eb'
+                    borderLeftColor: getCategory(appointment)?.color || '#e5e7eb'
                 }}
             >
                 <CardHeader className="p-2 h-full">
@@ -89,8 +95,8 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
         <Card
             className={`${view === 'list' ? "mt-2 cursor-pointer hover:shadow-md hover:bg-gray-50 transition-all duration-200" : "min-h-[120px] mt-0 border-l-4 rounded-xs w-full"}`}
             style={view === 'week' ? {
-                backgroundColor: getLighterColor(appointment.category?.color || '#e5e7eb'),
-                borderLeftColor: appointment.category?.color || '#e5e7eb'
+                backgroundColor: getLighterColor(getCategory(appointment)?.color || '#e5e7eb'),
+                borderLeftColor: getCategory(appointment)?.color || '#e5e7eb'
             } : {}}
             onClick={handleCardClick}
         >
@@ -99,7 +105,7 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
                     <div className="flex items-center gap-1 min-w-0 flex-1">
                         {view === 'list' && (
                             <div className="h-3 w-3 rounded-xs inline-block flex-shrink-0"
-                                style={{ backgroundColor: appointment.category?.color || '#e5e7eb' }} />
+                                style={{ backgroundColor: getCategory(appointment)?.color || '#e5e7eb' }} />
                         )}
                         <h1 className={`font-semibold  ${view === 'list' ? 'text-base' : 'line-clamp-2 text-[12px]'} ${isComplete ? 'line-through' : ''}`}>
                             {appointment.title || 'Untitled Appointment'}
