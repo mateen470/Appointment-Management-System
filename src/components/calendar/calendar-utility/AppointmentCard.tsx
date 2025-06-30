@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { useRouter } from "next/navigation"
 import {
     Card,
     CardContent,
@@ -12,6 +13,7 @@ import { AppointmentCardProps } from "@/types/utility.types"
 import { useUpdateAppointment } from "@/lib/hooks/useUpdateAppointment"
 
 export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
+    const router = useRouter();
 
     const isComplete = useMemo(() => {
         if (!appointment.updated_at) return false
@@ -24,6 +26,12 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
     }, [appointment.updated_at])
 
     const updateMutation = useUpdateAppointment()
+
+    const handleCardClick = () => {
+        if (view === 'list') {
+            router.push(`/appointments/${appointment.id}/edit`);
+        }
+    };
 
     const handleCheckedChange = (checked: boolean) => {
         if (checked) {
@@ -40,6 +48,10 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
             })
         }
     }
+
+    const handleCheckboxClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
 
     const getLighterColor = (color: string) => {
         return color + '30';
@@ -66,11 +78,12 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
 
     return (
         <Card
-            className={`${view === 'list' ? "mt-2" : "min-h-[120px] mt-0 border-l-4 rounded-xs w-full"}`}
+            className={`${view === 'list' ? "mt-2 cursor-pointer hover:shadow-md hover:bg-gray-50 transition-all duration-200" : "min-h-[120px] mt-0 border-l-4 rounded-xs w-full"}`}
             style={view === 'week' ? {
                 backgroundColor: getLighterColor(appointment.category?.color || '#e5e7eb'),
                 borderLeftColor: appointment.category?.color || '#e5e7eb'
             } : {}}
+            onClick={handleCardClick}
         >
             <CardHeader className={`${view === 'list' ? 'h-auto md:h-[10px]' : 'h-[10px] py-0 px-2 -mt-3'}`}>
                 <CardTitle className="flex items-center justify-between w-full">
@@ -87,6 +100,7 @@ export function AppointmentCard({ view, appointment }: AppointmentCardProps) {
                         className="cursor-pointer bg-white rounded-xs flex-shrink-0 h-4 w-4"
                         checked={isComplete}
                         onCheckedChange={handleCheckedChange}
+                        onClick={handleCheckboxClick}
                     />
                 </CardTitle>
             </CardHeader>

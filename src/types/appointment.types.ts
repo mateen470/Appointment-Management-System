@@ -46,12 +46,24 @@ export interface CreateAppointmentData {
   attachements: string[] | null;
 }
 
+export interface UpdateAppointmentData {
+  id: UUID;
+  title: string | null;
+  start: string | null;
+  end: string | null;
+  location: string | null;
+  patient: UUID | null; // Foreign key
+  category: UUID | null; // Foreign key
+  notes: string | null;
+  attachements: string[] | null;
+}
+
 export interface AppointmentFormData {
   title: string;
   start: Date | null;
   end: Date | null;
   location: string;
-   patient: UUID | null; // Foreign key
+  patient: UUID | null; // Foreign key
   category: UUID | null; // Foreign key
   notes: string;
 }

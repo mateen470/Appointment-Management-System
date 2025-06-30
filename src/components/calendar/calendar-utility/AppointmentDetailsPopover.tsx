@@ -1,6 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
+import { useRouter } from "next/navigation";
 import {
     HoverCard,
     HoverCardContent,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import {
     Clock,
     MapPin,
@@ -16,7 +18,8 @@ import {
     Calendar,
     Heart,
     Mail,
-    Cake
+    Cake,
+    Edit
 } from "lucide-react";
 import { AppointmentDetailsPopoverProps } from "@/types/utility.types";
 
@@ -26,6 +29,13 @@ export function AppointmentDetailsPopover({
     children,
     appointment
 }: AppointmentDetailsPopoverProps) {
+    const router = useRouter();
+
+    const handleEditClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        router.push(`/appointments/${appointment.id}/edit`);
+    };
 
     const formatDateTime = (dateString: string) => {
         try {
@@ -78,19 +88,29 @@ export function AppointmentDetailsPopover({
                             <h4 className="font-semibold text-sm leading-tight">
                                 {appointment.title || "Unbenannter Termin"}
                             </h4>
-                            {appointment.category && (
-                                <Badge
-                                    variant="secondary"
-                                    className="text-xs"
-                                    style={{
-                                        backgroundColor: appointment.category.color ? `${appointment.category.color}20` : undefined,
-                                        color: appointment.category.color || undefined,
-                                        borderColor: appointment.category.color || undefined
-                                    }}
+                            <div className="flex items-center gap-2">
+                                {appointment.category && (
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-xs"
+                                        style={{
+                                            backgroundColor: appointment.category.color ? `${appointment.category.color}20` : undefined,
+                                            color: appointment.category.color || undefined,
+                                            borderColor: appointment.category.color || undefined
+                                        }}
+                                    >
+                                        {appointment.category.label}
+                                    </Badge>
+                                )}
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={handleEditClick}
+                                    className="h-6 w-6 p-0 hover:bg-gray-100 cursor-pointer"
                                 >
-                                    {appointment.category.label}
-                                </Badge>
-                            )}
+                                    <Edit className="h-3 w-3 text-gray-500 hover:text-gray-700" />
+                                </Button>
+                            </div>
                         </div>
 
                         {appointment.category?.description && (

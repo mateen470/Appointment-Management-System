@@ -80,3 +80,15 @@ export interface DateTimeSectionProps {
   onStartTimeChange: (time: string) => void;
   onEndTimeChange: (time: string) => void;
 }
+
+export interface AppointmentFormProps {
+  mode: "create" | "edit";
+  appointmentId?: string;
+  initialData?: Appointment;
+}
+
+export interface EditAppointmentPageProps {
+  params: {
+    id: string;
+  };
+}
